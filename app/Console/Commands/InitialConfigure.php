@@ -2,18 +2,18 @@
 
 namespace App\Console\Commands;
 
-use App\User;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
-class RandomStatusUser extends Command
+class InitialConfigure extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:random-status-user';
+    protected $signature = 'command:initial';
 
     /**
      * The console command description.
@@ -36,15 +36,10 @@ class RandomStatusUser extends Command
      * Execute the console command.
      *
      * @return mixed
-     * @return mixed
      */
     public function handle()
     {
-        // $sql = sprintf('UPDATE users SET status = IF(RAND() > 0.5, %d, %d) WHERE 1', User::STATUS_ACTIVATE, User::STATUS_DEACTIVATE);
 
-        $sql = sprintf('UPDATE users SET status = CASE WHEN RAND() > 0.5 THEN %s ELSE %s END', User::STATUS_ACTIVATE, User::STATUS_DEACTIVATE);
-        $affected = DB::update($sql);
-        $this->info('Affected ' . $affected . ' records.');
+        $this->call('command:random-status-user');
     }
-
 }

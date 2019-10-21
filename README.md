@@ -7,6 +7,14 @@
 ## Run
 
 ```bash
+# install package php
+composer install
+
+# install packate nodejs
+npm install
+
+# migrate and seeding database
+php artisan migrate:fresh --seed
 
 # start server
 php artisan serve
