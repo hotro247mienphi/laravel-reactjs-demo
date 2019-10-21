@@ -9,6 +9,7 @@ const instance = axios.create({
 export default class UserEdit extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             user: null,
             name: '',
@@ -19,8 +20,6 @@ export default class UserEdit extends Component {
         this.uid = this.props.match.params.id;
         this.changeValue = this.changeValue.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
-
     }
 
     getUser(id) {

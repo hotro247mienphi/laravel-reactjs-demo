@@ -55903,6 +55903,7 @@ var instance = axios__WEBPACK_IMPORTED_MODULE_1___default.a.create({
   baseURL: "/api",
   timeout: 1e4
 });
+var log = console.log;
 
 var UserList =
 /*#__PURE__*/
@@ -55917,7 +55918,8 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(UserList).call(this, props));
     _this.state = {
       users: [],
-      isLoading: true
+      isLoading: true,
+      errors: []
     };
     _this.handleClickEdit = _this.handleClickEdit.bind(_assertThisInitialized(_this));
     _this.handleClickDelete = _this.handleClickDelete.bind(_assertThisInitialized(_this));
@@ -55931,13 +55933,28 @@ function (_Component) {
 
       instance.get('/users').then(function (result) {
         return result.data;
-      }).then(function (res) {
+      }).then(function (_ref) {
+        var data = _ref.data;
+
         _this2.setState({
-          users: res.data,
+          users: data.data,
           isLoading: false
         });
-      })["catch"](function (exception) {
-        console.log(exception);
+      })["catch"](function (_ref2) {
+        var response = _ref2.response;
+        var errors = response.data.errors;
+
+        if (errors) {
+          var err = [];
+
+          for (var key in errors) {
+            err.push(errors[key].join(''));
+          }
+
+          _this2.setState({
+            errors: err
+          });
+        }
       });
     }
   }, {
@@ -55957,7 +55974,7 @@ function (_Component) {
           isLoading: true
         }, _this3.getUserList);
       })["catch"](function (exception) {
-        console.log(exception);
+        log(exception);
       });
     }
   }, {

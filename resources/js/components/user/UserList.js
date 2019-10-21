@@ -7,38 +7,49 @@ const instance = axios.create({
     timeout: 1e4,
 });
 
+const log = console.log;
+
 export default class UserList extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             users: [],
             isLoading: true,
+            errors: []
         };
 
         this.handleClickEdit = this.handleClickEdit.bind(this);
         this.handleClickDelete = this.handleClickDelete.bind(this);
-
     }
 
     getUserList() {
-        instance.get('/users')
-            .then(result => result.data)
-            .then(res => {
+        instance.get('/users').then(result => result.data)
+            .then(({data}) => {
                 this.setState({
-                    users: res.data,
+                    users: data.data,
                     isLoading: false
                 });
-            })
-            .catch(exception => {
-                console.log(exception);
-            })
+            }).catch(({response}) => {
+
+            const {errors} = response.data;
+
+            if (errors) {
+                const err = [];
+                for (let key in errors) {
+                    err.push(errors[key].join(''));
+                }
+                this.setState({errors: err});
+            }
+
+        });
     }
 
-    handleClickEdit (id){
+    handleClickEdit(id) {
         this.props.history.push(`/users/${id}`);
     }
 
-    handleClickDelete (id) {
+    handleClickDelete(id) {
         instance.delete(`/users/${id}`)
             .then(result => result.data)
             .then(res => {
@@ -47,11 +58,11 @@ export default class UserList extends Component {
                 }, this.getUserList);
             })
             .catch(exception => {
-                console.log(exception);
+                log(exception);
             })
     }
 
-    setPageTitle (title){
+    setPageTitle(title) {
         document.title = title;
     }
 
@@ -71,8 +82,11 @@ export default class UserList extends Component {
                     </td>
                     <td>{item.email}</td>
                     <td>
-                        <button className="btn btn-warning btn-sm" onClick={() => this.handleClickEdit(item.id)}>Edit</button>
-                        <button className="btn btn-danger btn-sm ml-1" onClick={() => this.handleClickDelete(item.id)}>Delete</button>
+                        <button className="btn btn-warning btn-sm" onClick={() => this.handleClickEdit(item.id)}>Edit
+                        </button>
+                        <button className="btn btn-danger btn-sm ml-1"
+                                onClick={() => this.handleClickDelete(item.id)}>Delete
+                        </button>
                     </td>
                 </tr>
             );
