@@ -13,8 +13,8 @@ composer install
 # install packate nodejs
 npm install
 
-# migrate and seeding database
-php artisan migrate:fresh --seed
+# run command inital configure
+php artisan command:initial
 
 # start server
 php artisan serve

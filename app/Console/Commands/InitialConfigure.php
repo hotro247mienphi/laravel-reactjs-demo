@@ -40,6 +40,11 @@ class InitialConfigure extends Command
     public function handle()
     {
 
+//        $this->call('migrate:refresh');
+//        $this->call('db:seed');
+
+        $this->call('migrate:fresh', ['--seed' => true]);
+
         $this->call('command:random-status-user');
     }
 }
