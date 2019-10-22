@@ -9,16 +9,9 @@ use Illuminate\Database\Eloquent\Model;
  * Class ApiController
  * @package App\Http\Controllers\Api
  *
- * @property Model $model
  */
 class ApiController extends Controller
 {
-    protected $model = null;
-
-    public function __construct($model)
-    {
-        $this->model = $model;
-    }
 
     /**
      * Render json success

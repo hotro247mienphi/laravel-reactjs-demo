@@ -1,36 +1,32 @@
 <?php
 
+namespace App\General\Abstracts;
 
-namespace App\Repositories;
-
-
+use App\General\Interfaces\RepositoriesInterface;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class BaseRepository
  * @package App\Repositories
  *
- * @property Model $model
+ * @property Model $_model
  */
-abstract class BaseRepository implements RepositoriesInterface
+abstract class RepositoryAbstract implements RepositoriesInterface
 {
-    protected $model;
+    protected $_model;
 
     /**
-     * BaseRepository constructor.
      * @param Model $model
      */
-    public function __construct(Model $model)
-    {
-        $this->model = $model;
+    public function setModel(Model $model){
+        $this->_model = $model;
     }
 
     /**
      * @return Model
      */
-    public function model()
-    {
-        return $this->model;
+    public function getModel(){
+        return $this->_model;
     }
 
     /**
@@ -40,7 +36,7 @@ abstract class BaseRepository implements RepositoriesInterface
      */
     protected function findById($id, $columns = ['*'])
     {
-        return $this->model()->findOrFail($id, $columns);
+        return $this->getModel()->findOrFail($id, $columns);
     }
 
     /**
@@ -49,8 +45,7 @@ abstract class BaseRepository implements RepositoriesInterface
      */
     public function all($columns = ['*'])
     {
-        // TODO: Implement all() method.
-        return $this->model()->all($columns);
+        return $this->getModel()->all($columns);
     }
 
     /**
@@ -60,9 +55,8 @@ abstract class BaseRepository implements RepositoriesInterface
      */
     public function paginate($limit = null, $columns = ['*'])
     {
-        // TODO: Implement paginate() method.
         $limit = is_null($limit) ? 50 : (int)$limit;
-        return $this->model()->paginate($limit, $columns);
+        return $this->getModel()->paginate($limit, $columns);
     }
 
     /**
@@ -70,33 +64,36 @@ abstract class BaseRepository implements RepositoriesInterface
      * @param array $columns
      * @return mixed
      */
-    public function find($id, $columns = ['*'])
+    public function find($id = null, $columns = ['*'])
     {
-        // TODO: Implement find() method.
+        $fields = request()->get('fields');
+        if ($fields) {
+            $columns = explode(',', $fields);
+        }
+
         return $this->findById($id, $columns);
     }
 
     /**
      * @param array $input
-     * @return bool
+     * @return Model
      * @throws \Throwable
      */
     public function create(array $input = [])
     {
-        // TODO: Implement create() method.
-        return $this->model()->saveOrFail($input);
+        $this->getModel()->fill($input)->saveOrFail();
+        return $this->getModel();
     }
 
     /**
      * @param array $input
      * @param null $id
-     * @return $this
+     * @return Model
      */
     public function update(array $input = [], $id = null)
     {
-        // TODO: Implement update() method.
         $this->findById($id)->fill($input)->saveOrFail();
-        return $this->model();
+        return $this->getModel();
     }
 
     /**
@@ -105,7 +102,6 @@ abstract class BaseRepository implements RepositoriesInterface
      */
     public function destroy($id = null)
     {
-        // TODO: Implement destroy() method.
         return $this->findById($id)->destroy($id);
     }
 }

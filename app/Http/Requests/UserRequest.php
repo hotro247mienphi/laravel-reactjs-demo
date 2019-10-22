@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
         $id = request()->route('id');
 
         $general = [
-            'name' => 'required|min:6|max:12',
+            'name' => 'required|min:6|max:128',
             'email' => 'required|email',
         ];
 

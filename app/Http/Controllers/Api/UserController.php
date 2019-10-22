@@ -2,30 +2,26 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\General\Repositories\UserRepository;
 use App\Http\Requests\UserRequest;
-use App\Repositories\UserRepository;
 use App\User;
 
 /**
  * Class UserController
  * @package App\Http\Controllers\Api
  *
- * @property User $model
  * @property UserRepository $userRepository
  */
 class UserController extends ApiController
 {
-
     protected $userRepository;
 
     /**
      * UserController constructor.
-     * @param User $model
      * @param UserRepository $userRepository
      */
-    public function __construct(User $model, UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository)
     {
-        parent::__construct($model);
         $this->userRepository = $userRepository;
     }
 
@@ -61,8 +57,9 @@ class UserController extends ApiController
      */
     public function create(UserRequest $request)
     {
+        $request->merge(['status' => User::STATUS_ACTIVATE]);
         $this->userRepository->create($request->all());
-        return $this->jsonSuccess($this->userRepository->model());
+        return $this->jsonSuccess($this->userRepository->getModel());
     }
 
     /**
@@ -76,7 +73,7 @@ class UserController extends ApiController
     public function update(UserRequest $request, $id)
     {
         $this->userRepository->update($request->all(), $id);
-        return $this->jsonSuccess($this->userRepository->model());
+        return $this->jsonSuccess($this->userRepository->getModel());
     }
 
     /**

@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\DB;
  * @property string email_verified_at
  * @property string created_at
  * @property integer updated_at
+ *
  */
 class User extends Authenticatable
 {
@@ -70,6 +71,8 @@ class User extends Authenticatable
     }
 
     /**
+     * $this->activate()
+     *
      * @param Builder $builder
      * @return mixed
      */
@@ -79,11 +82,49 @@ class User extends Authenticatable
     }
 
     /**
+     * $this->isGmail()
+     *
      * @param Builder $builder
      * @return Builder
      */
     public function scopeIsGmail(Builder $builder): Builder
     {
         return $builder->where('email', 'REGEXP', 'gmail.com$');
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeIsGmailOrYahoo(Builder $builder): Builder
+    {
+        return $builder->where(function ($query) {
+            return $query->where('email', 'REGEXP', 'gmail.com$')
+                ->orWhere('email', 'REGEXP', 'yahoo.com$');
+        });
+    }
+
+    /**
+     * @param Builder $builder
+     * @param null $params
+     * @return Builder
+     */
+    public function scopeMailIn(Builder $builder, $params = null)
+    {
+
+        if (is_string($params)) {
+            return $builder->where('email', 'REGEXP', $params . '$');
+        }
+
+        if (is_array($params)) {
+            return $builder->where(function ($query) use ($params) {
+                foreach ($params as $param):
+                    $query->orWhere('email', 'REGEXP', $param . '$');
+                endforeach;
+                return $query;
+            });
+        }
+
+        return $builder;
     }
 }
