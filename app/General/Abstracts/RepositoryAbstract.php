@@ -16,17 +16,19 @@ abstract class RepositoryAbstract implements RepositoriesInterface
     protected $_model;
 
     /**
-     * @param Model $model
+     * @return Model
      */
-    public function setModel(Model $model){
-        $this->_model = $model;
+    public function getModel()
+    {
+        return $this->_model;
     }
 
     /**
-     * @return Model
+     * @param Model $model
      */
-    public function getModel(){
-        return $this->_model;
+    public function setModel(Model $model)
+    {
+        $this->_model = $model;
     }
 
     /**

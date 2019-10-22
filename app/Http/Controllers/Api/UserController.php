@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\General\Repositories\UserRepository;
+use App\General\Interfaces\RepositoriesInterface;
 use App\Http\Requests\UserRequest;
 use App\User;
 
@@ -10,7 +10,7 @@ use App\User;
  * Class UserController
  * @package App\Http\Controllers\Api
  *
- * @property UserRepository $userRepository
+ * @property RepositoriesInterface $userRepository
  */
 class UserController extends ApiController
 {
@@ -18,9 +18,9 @@ class UserController extends ApiController
 
     /**
      * UserController constructor.
-     * @param UserRepository $userRepository
+     * @param RepositoriesInterface $userRepository
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(RepositoriesInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }

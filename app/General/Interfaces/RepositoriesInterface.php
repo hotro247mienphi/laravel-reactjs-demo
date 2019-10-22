@@ -2,8 +2,14 @@
 
 namespace App\General\Interfaces;
 
+use Illuminate\Database\Eloquent\Model;
+
 interface RepositoriesInterface
 {
+    public function getModel();
+
+    public function setModel(Model $model);
+
     public function all($columns = ['*']);
 
     public function find($id, $columns = ['*']);

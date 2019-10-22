@@ -1,5 +1,9 @@
 <?php
+
+use App\Http\Middleware\MyMiddleware;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,14 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::group([
+    'middleware' => MyMiddleware::class,
+    'as'=> 'group_01.'
+], function () {
 
-Route::get('/users', function () {
-    return view('welcome');
-});
+    Route::get('/', function () {
+        return View::make('welcome');
+    })->name('index');
 
-Route::get('/users/{id}', function () {
-    return view('welcome');
+    Route::get('/users', function () {
+        return view('welcome');
+    })->name('user_list');
+
+    Route::get('/users/{id}', function () {
+        return view('welcome');
+    })->name('user_detail');
+
 });

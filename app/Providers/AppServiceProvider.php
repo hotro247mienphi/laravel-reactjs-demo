@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
         // Schema::defaultStringLength(191);
 
         // $this->writeDbLog();
+
     }
 
     public function writeDbLog()
