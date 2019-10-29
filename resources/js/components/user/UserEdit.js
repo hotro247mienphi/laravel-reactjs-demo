@@ -6,6 +6,11 @@ const instance = axios.create({
     timeout: 1e4,
 });
 
+import {Row, Col, Alert} from 'antd';
+import {Form, Icon, Input, Button} from 'antd';
+
+const log = console.log;
+
 export default class UserEdit extends Component {
     constructor(props) {
         super(props);
@@ -15,11 +20,21 @@ export default class UserEdit extends Component {
             name: '',
             email: '',
             isLoading: true,
+            errors: []
         };
 
         this.uid = this.props.match.params.id;
         this.changeValue = this.changeValue.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    getErrorRequest(exception){
+        const errors = exception.response.data.errors;
+        const err = [];
+        for(let key in errors){
+            err.push(errors[key][0]);
+        }
+        return err;
     }
 
     getUser(id) {
@@ -56,13 +71,24 @@ export default class UserEdit extends Component {
             .then(result => result.data)
             .then(({success, data}) => {
                 if (success) {
-                    this.props.history.push(`/users`);
+                    this.props.history.goBack();
                 } else {
                     console.log(data);
                 }
             })
             .catch(exception => {
-                console.log(exception);
+                const response = exception.response;
+                log(response);
+
+                if(response){
+                    this.setState({
+                        errors: this.getErrorRequest(exception)
+                    });
+                } else {
+                    this.setState({
+                        errors: ['Loi roi']
+                    })
+                }
             });
     }
 
@@ -75,7 +101,8 @@ export default class UserEdit extends Component {
     }
 
     render() {
-        const {user, isLoading, name, email} = this.state;
+
+        const {user, isLoading, name, email, errors} = this.state;
 
         if (isLoading) {
             return (
@@ -83,43 +110,67 @@ export default class UserEdit extends Component {
             );
         }
 
+        let htmlError = '';
+        if(errors.length){
+            htmlError = <Alert message={<ul>{errors.map(item => <li>{item}</li>)}</ul>} type="error"/>
+        }
+
         this.setPageTitle(name);
 
         return (
             <div className="">
 
-                <h1>{user.name}</h1>
+                <Row type="flex" justify="center">
 
-                <div className="form-group">
-                    <label>Name</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={name}
-                        onChange={(e) => this.changeValue(e)}
-                        className="form-control"
-                        placeholder="Enter Name"
-                    />
-                </div>
+                    <Col span={12}>
 
-                <div className="form-group">
-                    <label>Email address</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={email}
-                        onChange={(e) => this.changeValue(e)}
-                        className="form-control"
-                        placeholder="Enter email"
-                    />
-                </div>
+                        <h1>{user.name}</h1>
 
-                <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={() => this.handleSubmit()}
-                > Submit
-                </button>
+                        {htmlError}
+
+                        <Form layout="horizontal">
+
+                            <Form.Item>
+                                <Input
+                                    prefix={<Icon type="user"/>}
+                                    name="name"
+                                    value={name}
+                                    onChange={(e) => this.changeValue(e)}
+                                    type="text"
+                                    placeholder="Username"/>
+                            </Form.Item>
+
+                            <Form.Item>
+                                <Input
+                                    prefix={<Icon type="mail"/>}
+                                    type="email"
+                                    name="email"
+                                    value={email}
+                                    onChange={(e) => this.changeValue(e)}
+                                    placeholder="email"/>
+                            </Form.Item>
+
+                            <Form.Item>
+                                <Button
+                                    type="primary"
+                                    onClick={() => this.handleSubmit()}
+                                    disabled={false}>
+                                    Submit data
+                                </Button>
+
+                                <Button
+                                    type="dashed"
+                                    onClick={() => this.props.history.goBack()}
+                                    disabled={false}>
+                                    Back to list
+                                </Button>
+                            </Form.Item>
+
+                        </Form>
+
+                    </Col>
+
+                </Row>
 
             </div>
         );

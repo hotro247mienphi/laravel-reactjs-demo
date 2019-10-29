@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 
 
@@ -23,4 +24,7 @@ Route::group(['namespace' => 'Api', 'middleware' => ['allow_cross_domain']], fun
 /** route not found */
 Route::any('{path}', function () {
     return response()->json(['success' => false, 'data' => 'Not Found'], 404);
-})->middleware(['allow_cross_domain'])->where('path', '.*')->name('api_not_found');
+})
+    ->middleware(['allow_cross_domain'])
+    ->where('path', '.*')
+    ->name('api_not_found');

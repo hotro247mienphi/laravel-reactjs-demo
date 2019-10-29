@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 
 /**
  * Class ApiController
@@ -17,7 +17,7 @@ class ApiController extends Controller
      * Render json success
      *
      * @param $data
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function jsonSuccess($data)
     {
@@ -31,7 +31,7 @@ class ApiController extends Controller
      * Render json fail
      *
      * @param $data
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function jsonFail($data)
     {

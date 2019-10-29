@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {DatePicker} from 'antd';
 
 export default class Home extends Component {
 
@@ -12,6 +13,7 @@ export default class Home extends Component {
         return (
             <div className="">
                 <h1>Home page</h1>
+                <DatePicker/>
             </div>
         );
     }

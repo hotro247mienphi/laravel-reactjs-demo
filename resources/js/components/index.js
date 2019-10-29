@@ -5,17 +5,15 @@ import route from "../route/route";
 import Nav from "./partial/Nav";
 
 export default class Index extends Component {
+
     render() {
+
         return (
             <BrowserRouter>
 
-                <div className="container">
+                <Nav/>
 
-                    <Nav/>
-
-                    { route.map((rt, index) => <Route {...rt} key={`rt-${index}`}/>) }
-
-                </div>
+                {route.map((rt, index) => <Route {...rt} key={`rt-${index}`}/>)}
 
             </BrowserRouter>
         );

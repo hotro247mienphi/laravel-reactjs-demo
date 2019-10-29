@@ -1,4 +1,4 @@
-# Laravel API
+# Laravel API Or Laravel + React
 
 * Command call command.
 * Repositories.

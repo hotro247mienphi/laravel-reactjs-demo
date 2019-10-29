@@ -16,12 +16,12 @@ use Illuminate\Support\Facades\View;
 */
 
 Route::group([
-    'middleware' => MyMiddleware::class,
+    // 'middleware' => MyMiddleware::class,
     'as'=> 'group_01.'
 ], function () {
 
     Route::get('/', function () {
-        return View::make('welcome');
+        return view('welcome');
     })->name('index');
 
     Route::get('/users', function () {
