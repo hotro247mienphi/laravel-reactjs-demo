@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-
 Route::group(['namespace' => 'Api', 'middleware' => ['allow_cross_domain']], function () {
 
     /*
@@ -13,7 +12,7 @@ Route::group(['namespace' => 'Api', 'middleware' => ['allow_cross_domain']], fun
     */
     Route::group(['as' => 'users.', 'prefix' => '/users'], function () {
         Route::get('/', 'UserController@index')->name('index');
-        Route::post('/create', 'UserController@create')->name('create');
+        Route::post('/store', 'UserController@store')->name('store');
         Route::get('/{id}', 'UserController@show')->name('show');
         Route::put('/{id}', 'UserController@update')->name('update');
         Route::delete('/{id}', 'UserController@destroy')->name('destroy');

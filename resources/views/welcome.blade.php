@@ -7,6 +7,9 @@
 {{--    <link rel="stylesheet" href="{{ asset('css/app.css') }}"/>--}}
     <style>
         .text-right{text-align: right}
+        #example .ant-btn { margin-right: 8px; margin-bottom: 12px; }
+        li.ant-menu-item a{color: #bbb}
+        li.ant-menu-item-selected a{color: #fff}
     </style>
 </head>
 <body>

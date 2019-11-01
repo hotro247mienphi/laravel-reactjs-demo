@@ -58,7 +58,7 @@ class UserController extends ApiController
      * @return JsonResponse
      * @throws \Throwable
      */
-    public function create(UserRequest $request)
+    public function store(UserRequest $request)
     {
         $request->merge(['status' => User::STATUS_ACTIVATE]);
 

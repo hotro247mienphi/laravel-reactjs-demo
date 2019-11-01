@@ -1,25 +1,13 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter, Link, Route} from 'react-router-dom';
-import route from "../route/route";
-import Nav from "./partial/Nav";
+import RootRouter from "./routes";
 
-export default class Index extends Component {
-
-    render() {
-
-        return (
-            <BrowserRouter>
-
-                <Nav/>
-
-                {route.map((rt, index) => <Route {...rt} key={`rt-${index}`}/>)}
-
-            </BrowserRouter>
-        );
-    }
-}
+const App = React.memo(() => {
+    return <div>
+        <RootRouter/>
+    </div>
+});
 
 if (document.getElementById('example')) {
-    ReactDOM.render(<Index/>, document.getElementById('example'));
+    ReactDOM.render(<App/>, document.getElementById('example'));
 }
