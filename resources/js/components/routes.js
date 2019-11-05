@@ -1,14 +1,17 @@
 import React from 'react'
 import {HashRouter as Router, Switch, Route} from 'react-router-dom';
 import config from "./config";
+import Navigator from "./navigator";
 
 const Layout = React.memo(({children, breadcrumbs = []}) => {
     return <div>
-        Layout:
-        <code>
-            {breadcrumbs.map((v, i) => <span key={`br-${i}`}> {v.label} / </span>)}
-        </code>
+
+        <Navigator/>
+
         <hr/>
+        Default layout: <code>{breadcrumbs.map((v, i) => <span key={`br-${i}`}> {v.label} / </span>)}</code>
+        <hr/>
+
         <div> {children} </div>
     </div>
 });
@@ -19,7 +22,11 @@ const CustomRouter = ({component: Component, ...props}) => {
 
     return <Route {...props} render={({...rest}) => {
 
-        return <MainLayout breadcrumbs={breadcrumbs}><Component {...rest} /></MainLayout>
+        return <MainLayout breadcrumbs={breadcrumbs}>
+
+            <Component {...rest} />
+
+        </MainLayout>
 
     }}/>
 };

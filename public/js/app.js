@@ -36366,6 +36366,32 @@ if (document.getElementById('example')) {
 
 /***/ }),
 
+/***/ "./resources/js/components/navigator.js":
+/*!**********************************************!*\
+  !*** ./resources/js/components/navigator.js ***!
+  \**********************************************/
+/*! exports provided: Navigator, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Navigator", function() { return Navigator; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+var Navigator = function Navigator() {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/"
+  }, "Home"), " --- \xA0", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+    to: "/about"
+  }, "About"));
+};
+/* harmony default export */ __webpack_exports__["default"] = (Navigator);
+
+/***/ }),
+
 /***/ "./resources/js/components/pages/about.js":
 /*!************************************************!*\
   !*** ./resources/js/components/pages/about.js ***!
@@ -36401,6 +36427,8 @@ AboutPage.breadcrumbs = [{
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _navigator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../navigator */ "./resources/js/components/navigator.js");
+
 
 var HomePage = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function () {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Home Page");
@@ -36409,11 +36437,11 @@ var OtherLayout = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (_r
   var children = _ref.children,
       _ref$breadcrumbs = _ref.breadcrumbs,
       breadcrumbs = _ref$breadcrumbs === void 0 ? [] : _ref$breadcrumbs;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Other layout", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("code", null, breadcrumbs.map(function (v, i) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_navigator__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), "Other layout: ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("code", null, breadcrumbs.map(function (v, i) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       key: "br-".concat(i)
     }, " ", v.label, " / ");
-  })), children);
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), children);
 });
 HomePage.layout = OtherLayout;
 HomePage.breadcrumbs = [{
@@ -36439,6 +36467,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./config */ "./resources/js/components/config.js");
+/* harmony import */ var _navigator__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./navigator */ "./resources/js/components/navigator.js");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
@@ -36448,11 +36477,12 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 
 
+
 var Layout = react__WEBPACK_IMPORTED_MODULE_0___default.a.memo(function (_ref) {
   var children = _ref.children,
       _ref$breadcrumbs = _ref.breadcrumbs,
       breadcrumbs = _ref$breadcrumbs === void 0 ? [] : _ref$breadcrumbs;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Layout:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("code", null, breadcrumbs.map(function (v, i) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_navigator__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), "Default layout: ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("code", null, breadcrumbs.map(function (v, i) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
       key: "br-".concat(i)
     }, " ", v.label, " / ");
